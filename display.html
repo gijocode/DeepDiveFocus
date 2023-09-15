@@ -52,11 +52,11 @@
                         document.getElementById("largeText").textContent = chunk;
                         currentIndex += wordCount;
                         for (let i = interval / 1000; i > 0; i--) {
-                            document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
-                            await sleep(1000);
                             if (((interval / 1000) - i) == 10) {
                                 audio.play();
                             }
+                            document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
+                            await sleep(1000);
                         }
                         displayNextChunk();
                     } else if (currentIndex >= words.length) {
