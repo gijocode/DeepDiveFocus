@@ -43,6 +43,8 @@
                 window.location.href = "index.html"; // Redirect to the main page
             } else {
                 var words = inputText.split(" ");
+                var audio = new Audio(
+                    'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
                 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
                 const displayNextChunk = async () => {
                     if (!isPaused && currentIndex < words.length) {
@@ -52,6 +54,9 @@
                         for (let i = interval / 1000; i > 0; i--) {
                             document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
                             await sleep(1000);
+                            if (((interval / 1000) - i) == 10) {
+                                audio.play();
+                            }
                         }
                         displayNextChunk();
                     } else if (currentIndex >= words.length) {
