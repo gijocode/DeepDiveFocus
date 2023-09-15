@@ -19,24 +19,16 @@
             const body = document.body;
             body.classList.toggle("dark-theme");
             // Retrieve input values from local storage
-            const inputText = localStorage.getItem("inputText");
+            var inputText = localStorage.getItem("inputText");
+            inputText = inputText.replace(/\n/g, " ");
             const wordCount = parseInt(localStorage.getItem("wordCount"));
             const interval = parseInt(localStorage.getItem("interval"));
             console.log(inputText);
-            console.log(wordCount);
-            console.log(interval);
             var currentIndex = 0;
+            var current_timer = interval / 1000;
             var isPaused = false;
             const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
-            const repeatedGreetings = async () => {
-                await sleep(1000)
-                console.log("First")
-                await sleep(1000)
-                console.log("Second")
-                await sleep(1000)
-                console.log("Third")
-            }
             if (!inputText || isNaN(wordCount) || isNaN(interval)) {
                 // Handle missing or invalid values
                 alert("Invalid input values.");
@@ -44,21 +36,28 @@
             } else {
                 var words = inputText.split(" ");
                 var audio = new Audio(
-                    'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
+                    'beep.mp3');
                 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
                 const displayNextChunk = async () => {
                     if (!isPaused && currentIndex < words.length) {
                         const chunk = words.slice(currentIndex, currentIndex + wordCount).join(" ");
                         document.getElementById("largeText").textContent = chunk;
                         currentIndex += wordCount;
-                        for (let i = interval / 1000; i > 0; i--) {
-                            if (((interval / 1000) - i) == 10) {
+                        for (let i = current_timer; i > 0; i--) {
+                            if (!isPaused && i == 1) {
                                 audio.play();
                             }
-                            document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
-                            await sleep(1000);
+                            if (!isPaused) {
+                                document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
+                                await sleep(1000);
+                            }
+                            else {
+                                break;
+                            }
                         }
-                        displayNextChunk();
+                        if (!isPaused) {
+                            displayNextChunk();
+                        }
                     } else if (currentIndex >= words.length) {
                         document.getElementById("largeText").textContent = "End of text.";
                     }
@@ -73,10 +72,16 @@
                     isPaused = !isPaused; // Toggle pause state
                     if (isPaused) {
                         pauseButton.textContent = "Resume";
-                        document.getElementById("timeleft").innerHTML = "Paused"
+                        current_timer = document.getElementById("timeleft").innerHTML.replace("Time Left: ", "");
+                        current_timer = Number(current_timer)
+                        pauseButton.style = "background-color: rgb(26, 26, 157)";
+                        // document.getElementById("timeleft").innerHTML = "Paused"
                     } else {
                         pauseButton.textContent = "Pause";
+                        pauseButton.style = "background-color: black";
+                        currentIndex -= wordCount;
                         displayNextChunk(); // Resume displaying text
+                        current_timer = interval / 1000;
                     }
                 });
             }
