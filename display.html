@@ -26,7 +26,6 @@
             console.log(inputText);
             var currentIndex = 0;
             var current_timer = interval / 1000;
-            var isPaused = false;
             const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
             if (!inputText || isNaN(wordCount) || isNaN(interval)) {
@@ -34,6 +33,7 @@
                 alert("Invalid input values.");
                 window.location.href = "index.html"; // Redirect to the main page
             } else {
+                var isPaused = false;
                 var words = inputText.split(" ");
                 var audio = new Audio(
                     'beep.mp3');
