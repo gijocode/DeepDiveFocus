@@ -73,6 +73,7 @@
                     isPaused = !isPaused; // Toggle pause state
                     if (isPaused) {
                         pauseButton.textContent = "Resume";
+                        document.getElementById("timeleft").innerHTML = "Paused"
                     } else {
                         pauseButton.textContent = "Pause";
                         displayNextChunk(); // Resume displaying text
