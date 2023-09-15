@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Text Display Tool</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Justin's Learning Tool</h1>
+             <label for="darkThemeToggle">Dark theme:</label>
+         <label class="switch" style="margin:20px">
+            <input type="checkbox" id="darkThemeToggle">
+            <span class="slider round"></span>
+        </label>
+        <textarea id="inputText" placeholder="Enter your text here"></textarea>
+        <input type="number" id="wordCount" placeholder="Number of words" style="width:20%">
+        <input type="number" id="interval" placeholder="Interval (in seconds)" style="width:20%">
+        <button id="startButton">Begin</button>
+    </div>
+
+    <script>
+        document.getElementById("startButton").addEventListener("click", function () {
+            const inputText = document.getElementById("inputText").value;
+            const wordCount = parseInt(document.getElementById("wordCount").value);
+            const interval = parseInt(document.getElementById("interval").value) * 1000; // Convert to milliseconds
+
+            if (!inputText || isNaN(wordCount) || isNaN(interval)) {
+                alert("Please fill in all fields with valid values.");
+                return;
+            }
+
+            // Store input values in local storage for the new page
+            localStorage.setItem("inputText", inputText);
+            localStorage.setItem("wordCount", wordCount);
+            localStorage.setItem("interval", interval);
+
+            window.location.href = "display.html"; // Redirect to the display page
+        });
+        function toggleDarkTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-theme");
+        }
+
+        // Event listener for the dark theme toggle
+        const darkThemeToggle = document.getElementById("darkThemeToggle");
+        darkThemeToggle.addEventListener("change", toggleDarkTheme);
+    </script>
+</body>
+</html>
+
