@@ -1,17 +1,25 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
     margin: 20px;
     padding: 0;
     transition: background-color 0.3s ease;
 
 }
 
-.dark-theme {
-    background-color: #333;
-    color: #fff;
+textarea, input, button {
+    background-color: #111111;
+    color: #707070;
+    border:1px solid green;
 }
-
+.dark-theme {
+    background-color: black;
+    color: #686666;
+}
+input:focus, textarea:focus {
+    outline: none !important;
+    border:3px solid green;
+    box-shadow: 0 0 10px #719ECE;
+  }
 .container {
     margin: 0 auto;
     padding: 20px;
@@ -22,6 +30,7 @@ body {
 }
 
 #largeText {
+    color: #707070;
     font-size: 126px;
 }
 #pauseButton {
@@ -69,7 +78,7 @@ body {
     height:200px;
 }
 input:checked + .slider {
-    background-color: #007BFF;
+    background-color: #00ff11;
 }
 
 input:checked + .slider:before {
@@ -84,22 +93,17 @@ textarea, input[type="number"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #00b327;
 }
 
 /* Additional styling for display.html goes here */
-
