@@ -44,11 +44,11 @@
                         document.getElementById("largeText").textContent = chunk;
                         currentIndex += wordCount;
                         for (let i = current_timer; i > 0; i--) {
-                            if (!isPaused && i == 1) {
-                                audio.play();
-                            }
                             if (!isPaused) {
                                 document.getElementById("timeleft").innerHTML = "Time Left: " + (i).toString();
+                                if (i == 1) {
+                                    audio.play();
+                                }
                                 await sleep(1000);
                             }
                             else {
