@@ -11,7 +11,11 @@
     <body>
         <div class="container">
             <div id="largeText"></div>
-            <button id="pauseButton">Pause</button>
+            <div id="buttons">
+                <button id="pauseButton">Pause</button>
+                <button id="rewind">Previous Text</button>
+                <button id="search-web">Search Web</button>
+            </div>
             <h3 id="timeleft" style="width: 20%;  font-size: 32px;"></h3>
         </div>
 
@@ -25,6 +29,7 @@
             const interval = parseInt(localStorage.getItem("interval"));
             console.log(inputText);
             var currentIndex = 0;
+            var chunk = "";
             var current_timer = interval / 1000;
             const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -40,7 +45,7 @@
                 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
                 const displayNextChunk = async () => {
                     if (!isPaused && currentIndex < words.length) {
-                        const chunk = words.slice(currentIndex, currentIndex + wordCount).join(" ");
+                        chunk = words.slice(currentIndex, currentIndex + wordCount).join(" ");
                         document.getElementById("largeText").textContent = chunk;
                         currentIndex += wordCount;
                         for (let i = current_timer; i > 0; i--) {
@@ -83,6 +88,22 @@
                         displayNextChunk(); // Resume displaying text
                         current_timer = interval / 1000;
                     }
+                });
+
+                const rewindButton = document.getElementById("rewind")
+                rewindButton.addEventListener("click", function () {
+                    currentIndex -= (2 * wordCount);
+                    if (currentIndex < 0) {
+                        currentIndex = 0;
+                    }
+                    var chunk = words.slice(currentIndex, currentIndex + wordCount).join(" ");
+                    document.getElementById("largeText").textContent = chunk;
+                    currentIndex += wordCount;
+                });
+                const searchButton = document.getElementById("search-web")
+                searchButton.addEventListener("click", function () {
+
+                    window.open("https://www.google.com/search?q=what+is+" + chunk);
                 });
             }
 

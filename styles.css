@@ -33,7 +33,7 @@ input:focus, textarea:focus {
     color: #707070;
     font-size: 126px;
 }
-#pauseButton {
+button {
     margin: 20px;
 }
 /* Other styles (unchanged) */
